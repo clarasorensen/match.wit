@@ -28,6 +28,8 @@ def createMentorProfile():
 def createMenteeProfile():
 
 #resources
+hackathons = [('San Diego Women\'s Hackathon', 'International Women\'s Hackathon', 'WHACK: Wellesley Hackathon', 'Women Who Code Hackathon',
+	'WiCHacks: RIT Women in Computing Hackathon')]
 codingTutorials = ['Hour of Code', 'BBC Bitesize', 'Tynker', 'Code Academy', 'Code Wars', 'Coursera', 'edX', 'Dash']
 conferences = ['Grace Hopper', 'WeCode', 'ACM Richard Tapia Celebration of Diversity in Computing']
 scholarships = [('Ann Arbor Women in Computing Scholarship', 'Women Techmakers Scholars Program', 'Palentir Scholarship for Women in Technology', 
@@ -37,15 +39,17 @@ scholarships = [('Ann Arbor Women in Computing Scholarship', 'Women Techmakers S
 preCollege = ['Aspirations in Computing', 'AspireIT', 'Girls Who Code', 'National Girls Collaborative Program', 'Girls RiseNET']
 
 def resourcesForMiddleSchool():
-	codingTutorials[0:1] + codingTutorials[3:4] + codingTutorials[6:7]
-	preCollege
+	return codingTutorials[0:3] + preCollege
 
 def resourcesForHighSchool():
-	codingTutorials[0:1] + codingTutorials[3:4] + codingTutorials[6:7]
-	scholarships[8:10]
+	return codingTutorials[0:2] + codingTutorials[3:5] + codingTutorials[6:8] + scholarships[8:11]
 
 def resourcesForCollege():
-	scholarships[0:7] + scholarships[9:10]
-	conferences
+	return codingTutorials[0:2] + codingTutorials[3:8] + scholarships[0:8] + scholarships[9:11] + conferences
 
+def resourcesFrontEnd():
+	return codingTutorials[3] + codingTutorials[5:8]
+
+def resourcesBackEnd():
+	return codingTutorials[0:8]
 
