@@ -27,39 +27,49 @@ interests = ['front end/web development', 'back end', 'data analysis', 'hardware
 mentors = {"Alison Savage", "Hye Sun Yun", "Karina Lin", "Jess Cherayil", "Clara Sorensen"}
 
 class User(object):
+	d = object #class takes in the dict??
 
-	def __init__(self,  name, communication, age, location, gender, spokenLanguages, relationshipGoals, occupation, mentorStatus=False, codingLanguages=None, resume=None, mentorBio=None, mentorType=None, interests=None):
-		self.mentorStatus = mentorStatus
-		self.name = name
-		self.communication = communication
-		self.age = age
+	def __init__(self, name, communication, age, location, gender, spokenLanguages, relationshipGoals, occupation, mentorStatus, codingLanguages=None, resume=None, mentorBio=None, mentorType=None, interests=None):
+		if d['account'] == 'mentor':
+			self.mentorStatus = True
+		else
+			self.mentorStatus = False
+
+		self.name = d['name']
+		self.communication = d['communication']
+		self.age = d['age']
 		self.location = location
-		self.gender = gender
-		self.spokenLanguages = spokenLanguages
-		self.relationshipGoals = relationshipGoals
-		self.occupation = occupation
-		self.codingLanguages = codingLanguages
-		self.resume = resume
-		self.mentorBio = mentorBio
-		self.interests = interests
+		self.gender = d['gender']
 
-	def buildVector(d):
+		self.spokenLanguages = d['spokenLang']
+		self.relationshipGoals = d['relationshipGoals']
+		
+		if self.mentor == True:
+			self.occupation = d['occupationMentor']
+			self.codingLanguages = d['codingLang']
+			self.resume = d['resume']
+			self.mentorBio = d['mentorBio']
+		else
+			self.occupation = d['occupationMentee']
+			self.interests = d['interests
+
+	def buildVector():
 		vectors = []
-		communicationF(d)
+		communicationF()
 		location = geolocator.geocode(self.location)
 		vectors.append(location[1][0]) #latitude
 		vectors.append(location[1][1]) #longitude
-		genderF(d)
-		spokenLanguagesF(d)
+		genderF()
+		spokenLanguagesF()
 		if self.relationshipGoals == 'casual':
 			vector.append(0)
 		else:
 			vector.append(1)
-		mentorTypeF(d)
-		occuptionMentorF(d)
-		codingXinterests(d)
+		mentorTypeF()
+		occuptionMentorF()
+		codingXinterests()
 
-	def communicationF(d):
+	def communicationF():
 		if '0' in self.communication: #email
 			vectors.append(1)
 		else:
@@ -81,7 +91,7 @@ class User(object):
 		else:
 			vectors.append(0)	
 
-	def genderF(d):
+	def genderF():
 		if '0' in self.gender: #female
 			vectors.append(0)
 		elif '1' in self.gender: #male
@@ -142,7 +152,7 @@ class User(object):
 		else:
 			vectors.append(0)
 
-	def mentorTypeF(d):
+	def mentorTypeF():
 		if '0' in self.mentorType: #basic programming skills
 			vectors.append(1)
 		else:
@@ -158,7 +168,7 @@ class User(object):
 		else:
 			vectors.append(0)
 
-	def occupationMentorF(d):
+	def occupationMentorF():
 		if self.mentorStatus: #mentor
 			if self.occupation == 'undergraduate':
 				vectors.append(0)
@@ -178,7 +188,7 @@ class User(object):
 			else:
 				vectors.append(3)
 
-	def codingXinterests(d):
+	def codingXinterests():
 		languageArray = [0] * 10
 
 		'HTML/CSS', 'JavaScript', 'Python', 'Java', 'PHP', 'Ruby', 'SQL', 'C#', 'C++', 'iOS'
@@ -241,6 +251,7 @@ class User(object):
 		return vectors
 
 import numpy as np
+import os
 from sklearn.neighbors import KNeighborsClassifier
 
 def load(filename):
@@ -258,6 +269,6 @@ def sklearn_knn_predict(trainX, trainy, testX, k, distance_metric):
     return model.predict(testX)
 
 def userMatch(userTest):
-	trainX, trainy = load(os.path.join(datadir, 'mentors.txt'))
+	trainX, trainy = load(os.path.join(os.getcwd(), 'mentors.txt'))
 	predict = sklearn_knn_predict(trainX, trainy, userTest.getVector(), 1, 'euclidean')
-	return mentors[predict]
+	return mentors[predict][0]
