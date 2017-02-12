@@ -151,6 +151,17 @@ def thirteen():
         flash('') # return results
 	return render_template('13.html')
 
+@app.route('/login/', methods=['GET','POST'])
+def signin():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user['email'] = email
+        user['password'] = password
+        log = login(email,password)
+        
+    return render_template('login.html')
+
 if __name__ == '__main__':
     app.debug = True
     app.run()
