@@ -68,6 +68,12 @@ def showMentee(mentor_email):
 	curs.execute('SELECT mentee_survey.name, mentee_survey.email FROM mentee_survey, `match` WHERE `match`.mentor_email=%s AND mentee_survey.email=`match`.mentee_email ORDER BY mentee_survey.name;', (mentor_email,))
 	return curs.fetchall()
 
+def accountType(email):
+    ''' returns the account type '''
+    curs = connect()
+    curs.execute('SELECT type FROM accounts WHERE email = %S;', (email,))
+    return curs.fetchone()
+    
 def hash_password(password):
     '''returns the hashed password with a random salt'''
     #uuid is used to generate a random number

@@ -169,7 +169,8 @@ def thirteen():
         interests = request.form['interests']
         user['interests'] = interests
         createAccount(user)
-
+        session['email'] = user['email']
+        session['logged_in'] = True
        	flash('account has been successfully added')
         flash('') # return results
         return redirect(url_for('resources'))
@@ -196,12 +197,19 @@ def signin():
             if log == 1:
                 flash('successfully logged in as ' + email)
                 session['logged_in'] = True
-                session['email'] = request.form['email']
+                session['email'] = email
                 return redirect(url_for('bookmark'))
     return render_template('login.html')
 
 @app.route('/resources/', methods=['GET','POST'])
 def resources():
+    if 'email' in session:
+        if accountType(session['email']) == "mentor":
+            mentee = showMentee(session['email'])
+            flash('Your mentee(s) are ' + mentee)
+        else:
+            mentor = showMentor(session['email'])
+            flash('Your mentor is ' + mentor)
     return render_template('resources.html')
 
 if __name__ == '__main__':

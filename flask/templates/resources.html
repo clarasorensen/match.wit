@@ -70,7 +70,15 @@
             <a class="page-scroll" href="#testimonials">Testimonials</a>
           </li>
           <li>
+
             <a class="page-scroll btn btn-md" style="background-color:#1297BA; padding:5px; margin-top:9px; margin-left:10px" href="#signup.html">Sign Up</a>
+          </li>
+          {% if session['logged_in'] %}
+           <a class="page-scroll btn btn-md" style="background-color:#1297BA; padding:5px; margin-top:9px; margin-left:10px" href="/login/">LogOut</a>
+          {% else %}
+          <li>
+            <a class="page-scroll btn btn-md" style="background-color:#1297BA; padding:5px; margin-top:9px; margin-left:10px" href="/login/">LogIn</a>
+            {% end if %}
           </li>
         </ul>
       </div>
@@ -91,6 +99,16 @@
       </div>
     </div>
   </header>
+
+  <div>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+  </div>
 
 
   <!-- Articles -->

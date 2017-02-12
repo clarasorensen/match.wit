@@ -70,9 +70,12 @@
           <li>
             <a class="page-scroll btn btn-md" style="background-color:#1297BA; padding:5px; margin-top:9px; margin-left:10px" href="/signup/">Sign Up</a>
           </li>
+          {% if session['logged_in'] %}
+           <a class="page-scroll btn btn-md" style="background-color:#1297BA; padding:5px; margin-top:9px; margin-left:10px" href="/login/">LogOut</a>
+          {% else %}
           <li>
             <a class="page-scroll btn btn-md" style="background-color:#1297BA; padding:5px; margin-top:9px; margin-left:10px" href="/login/">LogIn</a>
-          </li>
+            {% end if %}
         </ul>
       </div>
       <!-- /.navbar-collapse -->
