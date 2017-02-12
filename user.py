@@ -225,6 +225,9 @@ class User(object):
 
 		vectors.append(languageArray)
 
+	def getVector():
+		return vectors
+
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -244,5 +247,5 @@ def sklearn_knn_predict(trainX, trainy, testX, k, distance_metric):
 
 def userMatch(userTest):
 	trainX, trainy = load(os.path.join(datadir, 'mentors.txt'))
-	sklearn_knn_predict(trainX, trainy, userTest, 1, 'euclidean')
+	sklearn_knn_predict(trainX, trainy, userTest.getVector(), 1, 'euclidean')
 
