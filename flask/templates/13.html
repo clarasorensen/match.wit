@@ -89,6 +89,15 @@
         </div> -->
 
         <input type="submit" name="submit" class="page-scroll btn btn-xl" style="padding:5px; color:black" value= "Next">
+
+{% with messages = get_flashed_messages() %}
+   {% if messages %}
+      {% for message in messages %}
+         {{ message }}
+      {% endfor %}
+   {% endif %}
+{% endwith %}
+
         </form>
         </div>
       </div>

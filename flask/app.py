@@ -150,7 +150,7 @@ def eleven():
         # user = {}
         flash('account has been successfully added')
         flash('') # return results
-        return render_template('resources.html')
+        return redirect(url_for('resources'))
     else:	
 	   return render_template('11.html')
 
@@ -169,36 +169,51 @@ def thirteen():
         interests = request.form['interests']
         user['interests'] = interests
         createAccount(user)
-        # user = {}
+        session['email'] = user['email']
+        session['logged_in'] = True
        	flash('account has been successfully added')
+        # result = 
+        # addMatch(session['email'], result['email'])
         flash('') # return results
-        return render_template('resources.html')
+        return redirect(url_for('resources'))
     else:
 	   return render_template('13.html')
 
 @app.route('/login/', methods=['GET','POST'])
-def signin():
+def logIn():
     if 'email' in session:
-        if request.method == 'POST':
+        if request.method == 'GET':
             session.pop('email', None)
             session['logged_in'] = False
             flash('You are now logged out.')
+            return redirect(url_for('logIn'))
     else:
         if request.method == 'POST':
-            email = request.form['email']
-            password = request.form['password']
-            user['email'] = email
-            user['password'] = password
-            log = login(email,password)
+            loginemail = request.form['loginemail']
+            loginpassword = request.form['loginpassword']
+            log = empassCheck(loginemail,loginpassword)
             if log == 0:
                 flash('invalid email/password')
-                return redirect(url_for('signin'))
+                return redirect(url_for('logIn'))
             if log == 1:
-                flash('successfully logged in as ' + email)
+                flash('successfully logged in as ' + loginemail)
                 session['logged_in'] = True
-                session['email'] = request.form['email']
-                return redirect(url_for('bookmark'))
+                session['email'] = loginemail
+                return redirect(url_for('resources'))
     return render_template('login.html')
+
+@app.route('/resources/', methods=['GET','POST'])
+def resources():
+    if 'email' in session:
+        if accountType(session['email']) == "mentor":
+            mentee = showMentee(session['email'])
+            flash('Your mentee(s) are ')
+            flash(mentee)
+        else:
+            mentor = showMentor(session['email'])
+            flash('Your mentor is ')
+            flash(mentor)
+    return render_template('resources.html')
 
 if __name__ == '__main__':
     app.debug = True

@@ -9,7 +9,7 @@ drop table if exists accounts;
 
 create table accounts (
 	email varchar(100),
-	password varchar(50),
+	password varchar(100),
 	type enum('mentor','mentee', 'admin'),
 	INDEX(email)
 ) ENGINE = INNODB;
