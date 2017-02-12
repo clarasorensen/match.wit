@@ -153,13 +153,26 @@ def thirteen():
 
 @app.route('/login/', methods=['GET','POST'])
 def signin():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        user['email'] = email
-        user['password'] = password
-        log = login(email,password)
-        
+    if 'email' in session:
+        if request.method == 'POST':
+            session.pop('email', None)
+            session['logged_in'] = False
+            flash('You are now logged out.')
+    else:
+        if request.method == 'POST':
+            email = request.form['email']
+            password = request.form['password']
+            user['email'] = email
+            user['password'] = password
+            log = login(email,password)
+            if log == 0:
+                flash('invalid email/password')
+                return redirect(url_for('signin'))
+            if log == 1:
+                flash('successfully logged in as ' + email)
+                session['logged_in'] = True
+                session['email'] = request.form['email']
+                return redirect(url_for('bookmark'))
     return render_template('login.html')
 
 if __name__ == '__main__':
