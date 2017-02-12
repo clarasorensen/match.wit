@@ -23,6 +23,8 @@ codingLanguages = ['HTML/CSS', 'JavaScript', 'Python', 'Java', 'PHP', 'Ruby', 'S
 occupationMentee = ['middle school student', 'high school student', 'undergraduate', 'graduate student', 'working professional', 'other']
 interests = ['front end/web development', 'back end', 'data analysis', 'hardware', 'cybersecurity', 'hackathons', 'tech conferences', 'tech meet-ups']
 
+#example mentors
+mentors = {"Alison Savage", "Hye Sun Yun", "Karina Lin", "Jess Cherayil", "Clara Sorensen"}
 
 class User(object):
 
@@ -257,5 +259,5 @@ def sklearn_knn_predict(trainX, trainy, testX, k, distance_metric):
 
 def userMatch(userTest):
 	trainX, trainy = load(os.path.join(datadir, 'mentors.txt'))
-	sklearn_knn_predict(trainX, trainy, userTest.getVector(), 1, 'euclidean')
-
+	predict = sklearn_knn_predict(trainX, trainy, userTest.getVector(), 1, 'euclidean')
+	return mentors[predict]
