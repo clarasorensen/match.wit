@@ -17,10 +17,25 @@ def home():
 
 @app.route('/signup/', methods=['GET', 'POST'])
 def signup():
+	if request.method == 'POST':
+        type = request.form['type']
+        user['type'] = type
+        return redirect(url_for('one'))
 	return render_template('signup.html')
 
 @app.route('/1/', methods=['GET', 'POST'])
 def one():
+	if request.method == 'POST':
+        email = request.form['email']
+        exist = searchEmail(email)
+        if exist:
+        	password = request.form['password']
+        	user['email'] = email
+        	user['password'] = password
+        	return redirect(url_for('two'))
+        else:
+        	flaseh('account with the email already exists')
+        	return redirect(url_for('one'))
 	return render_template('1.html')
 
 @app.route('/2/', methods=['GET', 'POST'])
@@ -35,17 +50,29 @@ def two():
 
 @app.route('/3/', methods=['GET', 'POST'])
 def three():
+	if request.method == 'POST':
+        location = request.form('location') 
+        user['location'] = location
+        return redirect(url_for('four'))
 	return render_template('3.html')
 
 @app.route('/4/', methods=['GET', 'POST'])
 def four():
+	if request.method == 'POST':
+        spokenLang = request.form.getlist('spokenLang') 
+        for s in spokenLang:
+        	string += s
+        user['spokenLang'] = string
+        return redirect(url_for('five'))
 	return render_template('4.html')
 
 @app.route('/5/', methods=['GET', 'POST'])
 def five():
 	if request.method == 'POST':
         communication = request.form.getlist('communication') 
-        user['communication'] = communication
+        for s in communication:
+        	string += s
+        user['communication'] = string
         return redirect(url_for('six'))
 	return render_template('5.html')
 
@@ -61,8 +88,10 @@ def six():
 def seven():
 	if request.method == 'POST':
         mentorType = request.form.getlist('mentorType') 
-        user['mentorType'] = mentorType
-        return redirect(url_for('six'))
+        for s in mentorType:
+        	string += s
+        user['mentorType'] = string
+        return redirect(url_for('eight'))
 	return render_template('7.html')
 
 @app.route('/8/', methods=['GET', 'POST'])
@@ -70,19 +99,36 @@ def eight():
 	if request.method == 'POST':
         occupationMentor = request.form['occupationMentor']
         user['occupationMentor'] = occupationMentor
-        return redirect(url_for('nine'))
+        if user['type'] == mentor:
+			return redirect(url_for('eight'))
+		else:
+			return redirect(url_for('twelve'))
 	return render_template('8.html')
 
 @app.route('/9/', methods=['GET', 'POST'])
 def nine():
-	return render_template('9.html')
+	if request.method == 'POST':
+        codingLang = request.form.getList('codingLang')
+        for s in codingLang:
+        	string += s
+        user['codingLang'] = string
+        return redirect(url_for('ten'))	
+    return render_template('9.html')
 
 @app.route('/10/', methods=['GET', 'POST'])
 def ten():
+	if request.method == 'POST':
+        resume = request.form['resume']
+        user['resume'] = resume
+        return redirect(url_for('eleven'))	
 	return render_template('10.html')
 
 @app.route('/11/', methods=['GET', 'POST'])
 def eleven():
+	if request.method == 'POST':
+        mentorBio = request.form['mentorBio']
+        user['mentorBio'] = mentorBio
+        return redirect(url_for('twelve'))	
 	return render_template('11.html')
 
 @app.route('/12/', methods=['GET', 'POST'])
@@ -95,19 +141,14 @@ def twelve():
 
 @app.route('/13/', methods=['GET', 'POST'])
 def thirteen():
+	if request.method == 'POST':
+        interests = request.form['interests']
+        user['interests'] = interests
+        createAccount(user)
+        user = {}
+       	flash('account has been successfully added')
+        flash('') # return results
 	return render_template('13.html')
-
-@app.route('/emailpass/', methods=['GET', 'POST'])
-def emailpass():
-	return render_template('emailpass.html')
-
-@app.route('/location/', methods=['GET', 'POST'])
-def location():
-	return render_template('location.html')
-
-@app.route('/language/', methods=['GET', 'POST'])
-def language():
-	return render_template('language.html')
 
 if __name__ == '__main__':
     app.debug = True
