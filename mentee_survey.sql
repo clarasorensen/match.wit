@@ -21,6 +21,5 @@ create table mentee_survey (
 
 	INDEX(email),
 	FOREIGN KEY(email) REFERENCES accounts (email),
-	FOREIGN KEY (email) REFERENCES match (email)
-
+	FOREIGN KEY (email) REFERENCES `match` (mentee_email)
 ) ENGINE = INNODB;
