@@ -54,15 +54,20 @@
     <!-- /.container-fluid -->
   </nav>
 
-
   <!-- Header -->
   <header>
     <div class="container" style="height:100%">
       <div class="intro-text" style="height:100%">
-        <div class="intro-heading" style="font-size:35px">You will be a:</div>
+        <div class="intro-heading" style="font-size:35px">What type of mentoring are you willing to do?</div><br>
 
-        <input type="radio" name="type" value="mentor"> Mentor<br><br>
-        <input type="radio" name="type" value="mentee"> Mentee<br><br>
+        <br><br>
+
+        mentorType = ['basic programming skills', 'improving skills/language', 'career guidance']
+
+
+        <input type="checkbox" name="mentorType" value="basic programming skills"> asic programming skills<br>
+        <input type="checkbox" name="mentorType" value="improving skills/language"> improving skills/language<br>
+        <input type="checkbox" name="mentorType" value="career guidance"> career guidance<br>
 
         <!-- <div class="col-md-4 col-sm-6 portfolio-item">
           <input type="checkbox" id="checkbox-2-1" class="regular-checkbox big-checkbox" /><label for="checkbox-2-1"></label>

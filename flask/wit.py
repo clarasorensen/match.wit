@@ -31,7 +31,21 @@ def createAccount(form):
 	else:
 		return 0
 
-
+def login(email,pw):
+    '''checks to make sure the given email and password matches the ones \
+in the user database table'''
+    curs = connect()
+    # first checks if email exists in database                            
+    curs.execute('SELECT password FROM accounts WHERE email=%s;',(email,)\
+)
+    row = curs.fetchone()
+    if row is None:
+	return 0 # when email does not exist in database                  
+    else:
+       if check_password(row['password'],pw):
+           return 1 # username and password matched                          
+       else:
+           return 0 # username and password does not match 
 	
 def searchEmail(email):
     '''searches if the email is already in db'''
@@ -39,6 +53,19 @@ def searchEmail(email):
     curs.execute('SELECT * FROM accounts WHERE email=%s;',(email,))
     row = curs.fetchall()
     return row
+
+def showMentor(mentee_email):
+	''' finds the mentor '''
+	curs = connect()
+	# mentor = curs.execute('SELECT mentor_survey.email FROM `match` WHERE `match`.mentee_email=%s;', (mentee_email,))
+	curs.execute('SELECT mentor_survey.name, mentor_survey.email FROM mentor_survey, `match` WHERE `match`.mentee_email=%s AND mentor_survey.email=`match`.mentor_email;',(mentee_email,))
+	return curs.fetchall()
+
+def showMentee(mentor_email):
+	''' finds the mentees '''
+	curs = connect()
+	curs.execute('SELECT mentee_survey.name, mentee_survey.email FROM mentee_survey, `match` WHERE `match`.mentor_email=%s AND mentee_survey.email=`match`.mentee_email ORDER BY mentee_survey.name;', (mentor_email,))
+	return curs.fetchall()
 
 def hash_password(password):
     '''returns the hashed password with a random salt'''
