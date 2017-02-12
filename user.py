@@ -3,10 +3,10 @@ from geopy.geocoders import Nominatim
 geolocator = Nominatim()
 
 #both mentor/mentee questions
-name
+#name
 communication = ['email', 'phone', 'Skype', 'text', 'in-person'] #preference--select all that apply
 age = ['10-15', '16-20', '21-25', '26-30', '30+']
-location #zipcode
+#location #zipcode
 gender = ['female', 'male', 'nonbinary', 'prefer not to say']
 spokenLanguages = ['English', 'Chinese', 'Spanish', 'Arabic', 'Portuguese', 'Japanese', 'Malaysian', 'Russian', 'French', 'German']
 relationshipGoals = ['casual', 'formal']
@@ -16,8 +16,8 @@ mentorType = ['basic programming skills', 'improving skills/language', 'career g
 occupationMentor = ['undergraduate', 'graduate student', 'PhD student', 'working professional', 'self-employed', 'retired', 'other']
 codingLanguages = ['HTML/CSS', 'JavaScript', 'Python', 'Java', 'PHP', 'Ruby', 'SQL', 'C#', 'C++', 'iOS', 'other'] #select all that apply
 skillLevel = [0, 1, 2, 3, 4] #mentor ranks their level of skill when they select languages
-resume #could be linkedIn url
-mentorBio
+#resume #could be linkedIn url
+#mentorBio
 
 #mentee-specific
 occupationMentee = ['middle school student', 'high school student', 'undergraduate', 'graduate student', 'working professional', 'other']
@@ -26,7 +26,7 @@ interests = ['front end/web development', 'back end', 'data analysis', 'hardware
 
 class User(object):
 
-	def __init__(self, mentorStatus=False, name, communication, age, location, gender, spokenLanguages, relationshipGoals, occupation, codingLanguages=None, resume=None, mentorBio=None, mentorType=None, interests=None):
+	def __init__(self,  name, communication, age, location, gender, spokenLanguages, relationshipGoals, occupation, mentorStatus=False, codingLanguages=None, resume=None, mentorBio=None, mentorType=None, interests=None):
 		self.mentorStatus = mentorStatus
 		self.name = name
 		self.communication = communication
@@ -141,17 +141,17 @@ class User(object):
 			vectors.append(0)
 
 	def mentorTypeF(d):
-		if '0' in self.mentorType: #English
+		if '0' in self.mentorType: #basic programming skills
 			vectors.append(1)
 		else:
 			vectors.append(0)
 
-		if '1' in self.mentorType: #Chinese
+		if '1' in self.mentorType: #improving skills/language
 			vectors.append(1)	
 		else:
 			vectors.append(0)
 
-		if '2' in self.mentorType: #Spanish
+		if '2' in self.mentorType: #career guidance
 			vectors.append(1)
 		else:
 			vectors.append(0)
@@ -224,3 +224,28 @@ class User(object):
 				languageArray[2] = 4
 
 		vectors.append(languageArray)
+
+	def getVector():
+		return vectors
+
+import numpy as np
+from sklearn.neighbors import KNeighborsClassifier
+
+def load(filename):
+    x = np.loadtxt(filename, delimiter=',')
+    y = np.loadtxt(filename, delimiter = ',', usecols = (-1,))
+    
+    return (x,y)
+
+def sklearn_knn_predict(trainX, trainy, testX, k, distance_metric):
+    model = KNeighborsClassifier(algorithm='brute',
+                                 n_neighbors=k,
+                                 metric=distance_metric)
+
+    model.fit(trainX, trainy)
+    return model.predict(testX)
+
+def userMatch(userTest):
+	trainX, trainy = load(os.path.join(datadir, 'mentors.txt'))
+	sklearn_knn_predict(trainX, trainy, userTest.getVector(), 1, 'euclidean')
+
