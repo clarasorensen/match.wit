@@ -155,7 +155,7 @@ a.active, a:active, a:focus, a:hover {
   }
 }
 header {
-  background-image: url(../img/header.png);
+  background-image: url('../static/img/header.png');
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
