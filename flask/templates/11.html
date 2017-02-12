@@ -65,7 +65,11 @@
 
         <textarea rows="10" cols= "50" name="mentorBio">
 
+<<<<<<< HEAD
         </textarea>
+=======
+        <input type="text" name="mentorBio" style="color:black" value="">
+>>>>>>> 9e8adae3c10934e3224ed385eac005335c19810b
 
 
         <!-- <div class="col-md-4 col-sm-6 portfolio-item">
@@ -85,6 +89,15 @@
         <br><br>
 
         <input type="submit" name="submit" class="page-scroll btn btn-xl" style="padding:5px; color:black" value= "Next">
+
+{% with messages = get_flashed_messages() %}
+   {% if messages %}
+      {% for message in messages %}
+         {{ message }}
+      {% endfor %}
+   {% endif %}
+{% endwith %}
+
         </form>
         </div>
       </div>

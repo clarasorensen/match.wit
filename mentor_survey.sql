@@ -8,7 +8,7 @@ create table mentor_survey (
 
 	email varchar(100),
 	name varchar(50),
-	communcation varchar(5),
+	communication varchar(5),
 	age enum('10-15', '16-20', '21-25','26-30', '30+'),
 	location char(5),
 	gender enum('female', 'male', 'nonbinary', 'prefer not to say'),
@@ -21,6 +21,5 @@ create table mentor_survey (
 	mentorBio text(10000),
 
 	INDEX(email),
-	FOREIGN KEY (email) REFERENCES accounts (email),
-	FOREIGN KEY (email) REFERENCES `match` (mentee_email)
+	FOREIGN KEY (email) REFERENCES accounts (email)
 ) ENGINE = INNODB;

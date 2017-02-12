@@ -62,8 +62,8 @@
         <div class="intro-heading" style="font-size:35px">You will be a:</div><br>
          <form method=POST action="/signup/">
 
-        <input type="radio" name="type" value="mentor"> Mentor<br><br>
-        <input type="radio" name="type" value="mentee"> Mentee<br><br>
+        <input type="radio" name="account" value="mentor"> Mentor<br><br>
+        <input type="radio" name="account" value="mentee"> Mentee<br><br>
 
         <!-- <div class="col-md-4 col-sm-6 portfolio-item">
           <input type="checkbox" id="checkbox-2-1" class="regular-checkbox big-checkbox" /><label for="checkbox-2-1"></label>
@@ -80,6 +80,17 @@
         </div> -->
 
         <input type="submit" name="submit" class="page-scroll btn btn-xl" style="padding:5px; color:black" value= "Next">
+
+
+{% with messages = get_flashed_messages() %}
+   {% if messages %}
+      {% for message in messages %}
+         {{ message }}
+      {% endfor %}
+   {% endif %}
+{% endwith %}
+
+
       </form>
         </div>
       </div>

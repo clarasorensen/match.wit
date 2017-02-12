@@ -1,6 +1,13 @@
 #user.py
 from geopy.geocoders import Nominatim
 geolocator = Nominatim()
+import os
+import sys
+#sys.path.insert(0, os.path.join(os.getcwd()))
+#sys.path.insert(0, "/flask/")
+os.chdir(os.getcwd() + "/flask/")
+print os.listdir(os.getcwd())
+from app.py import *
 
 #both mentor/mentee questions
 #name
@@ -15,7 +22,7 @@ mentorType = ['basic programming skills', 'improving skills/language', 'career g
 #mentor-specific
 occupationMentor = ['undergraduate', 'graduate student', 'PhD student', 'working professional', 'self-employed', 'retired', 'other']
 codingLanguages = ['HTML/CSS', 'JavaScript', 'Python', 'Java', 'PHP', 'Ruby', 'SQL', 'C#', 'C++', 'iOS', 'other'] #select all that apply
-skillLevel = [0, 1, 2, 3, 4] #mentor ranks their level of skill when they select languages
+#skillLevel = [0, 1, 2, 3, 4] #mentor ranks their level of skill when they select languages
 #resume #could be linkedIn url
 #mentorBio
 
@@ -23,41 +30,53 @@ skillLevel = [0, 1, 2, 3, 4] #mentor ranks their level of skill when they select
 occupationMentee = ['middle school student', 'high school student', 'undergraduate', 'graduate student', 'working professional', 'other']
 interests = ['front end/web development', 'back end', 'data analysis', 'hardware', 'cybersecurity', 'hackathons', 'tech conferences', 'tech meet-ups']
 
+#example mentors
+mentors = {"Alison Savage", "Hye Sun Yun", "Karina Lin", "Jess Cherayil", "Clara Sorensen"}
 
 class User(object):
+	d = object #class takes in the dict??
 
-	def __init__(self,  name, communication, age, location, gender, spokenLanguages, relationshipGoals, occupation, mentorStatus=False, codingLanguages=None, resume=None, mentorBio=None, mentorType=None, interests=None):
-		self.mentorStatus = mentorStatus
-		self.name = name
-		self.communication = communication
-		self.age = age
+	def __init__(self, name, communication, age, location, gender, spokenLanguages, relationshipGoals, occupation, mentorStatus, codingLanguages=None, resume=None, mentorBio=None, mentorType=None, interests=None):
+		if d['account'] == 'mentor':
+			self.mentorStatus = True
+		else:
+			self.mentorStatus = False
+
+		self.name = d['name']
+		self.communication = d['communication']
+		self.age = d['age']
 		self.location = location
-		self.gender = gender
-		self.spokenLanguages = spokenLanguages
-		self.relationshipGoals = relationshipGoals
-		self.occupation = occupation
-		self.codingLanguages = codingLanguages
-		self.resume = resume
-		self.mentorBio = mentorBio
-		self.interests = interests
+		self.gender = d['gender']
 
-	def buildVector(d):
+		self.spokenLanguages = d['spokenLang']
+		self.relationshipGoals = d['relationshipGoals']
+		
+		if self.mentor == True:
+			self.occupation = d['occupationMentor']
+			self.codingLanguages = d['codingLang']
+			self.resume = d['resume']
+			self.mentorBio = d['mentorBio']
+		else:
+			self.occupation = d['occupationMentee']
+			self.interests = d['interests']
+
+	def buildVector():
 		vectors = []
-		communicationF(d)
+		communicationF()
 		location = geolocator.geocode(self.location)
 		vectors.append(location[1][0]) #latitude
 		vectors.append(location[1][1]) #longitude
-		genderF(d)
-		spokenLanguagesF(d)
+		genderF()
+		spokenLanguagesF()
 		if self.relationshipGoals == 'casual':
 			vector.append(0)
 		else:
 			vector.append(1)
-		mentorTypeF(d)
-		occuptionMentorF(d)
-		codingXinterests(d)
+		mentorTypeF()
+		occuptionMentorF()
+		codingXinterests()
 
-	def communicationF(d):
+	def communicationF():
 		if '0' in self.communication: #email
 			vectors.append(1)
 		else:
@@ -79,7 +98,7 @@ class User(object):
 		else:
 			vectors.append(0)	
 
-	def genderF(d):
+	def genderF():
 		if '0' in self.gender: #female
 			vectors.append(0)
 		elif '1' in self.gender: #male
@@ -140,7 +159,7 @@ class User(object):
 		else:
 			vectors.append(0)
 
-	def mentorTypeF(d):
+	def mentorTypeF():
 		if '0' in self.mentorType: #basic programming skills
 			vectors.append(1)
 		else:
@@ -156,7 +175,7 @@ class User(object):
 		else:
 			vectors.append(0)
 
-	def occupationMentorF(d):
+	def occupationMentorF():
 		if self.mentorStatus: #mentor
 			if self.occupation == 'undergraduate':
 				vectors.append(0)
@@ -176,52 +195,62 @@ class User(object):
 			else:
 				vectors.append(3)
 
-	def codingXinterests(d):
+	def codingXinterests():
 		languageArray = [0] * 10
 
 		'HTML/CSS', 'JavaScript', 'Python', 'Java', 'PHP', 'Ruby', 'SQL', 'C#', 'C++', 'iOS'
 		if self.mentorStatus: #mentor
 			if 'HTML/CSS' in self.codingLanguages:
-				languageArray[0] = self.codingLanguages.find('HTML/CSS') + len('HTML/CSS') - 1
+				languageArray[0] = 1
+				#languageArray[0] = self.codingLanguages.find('HTML/CSS') + len('HTML/CSS') - 1
 			if 'JavaScript' in self.codingLanguages:
-				languageArray[1] = self.codingLanguages.find('JavaScript') + len('JavaScript') - 1
+				languageArray[1] = 1
+				#languageArray[1] = self.codingLanguages.find('JavaScript') + len('JavaScript') - 1
 			if 'Python' in self.codingLanguages:
-				languageArray[2] = self.codingLanguages.find('Python') + len('Python') - 1
+				languageArray[2] = 1
+				#languageArray[2] = self.codingLanguages.find('Python') + len('Python') - 1
 			if 'Java' in self.codingLanguages:
-				languageArray[3] = self.codingLanguages.find('Java') + len('Java') - 1
+				languageArray[3] = 1
+				#languageArray[3] = self.codingLanguages.find('Java') + len('Java') - 1
 			if 'PHP' in self.codingLanguages:
-				languageArray[4] = self.codingLanguages.find('PHP') + len('PHP') - 1
+				languageArray[4] = 1
+				#languageArray[4] = self.codingLanguages.find('PHP') + len('PHP') - 1
 			if 'Ruby' in self.codingLanguages:
-				languageArray[5] = self.codingLanguages.find('Ruby') + len('Ruby') - 1
+				languageArray[5] = 1
+				#languageArray[5] = self.codingLanguages.find('Ruby') + len('Ruby') - 1
 			if 'SQL' in self.codingLanguages:
-				languageArray[6] = self.codingLanguages.find('SQL') + len('SQL') - 1
+				languageArray[6] = 1
+				#languageArray[6] = self.codingLanguages.find('SQL') + len('SQL') - 1
 			if 'C#' in self.codingLanguages:
-				languageArray[7] = self.codingLanguages.find('C#') + len('C#') - 1
+				languageArray[7] = 1
+				#languageArray[7] = self.codingLanguages.find('C#') + len('C#') - 1
 			if 'C++' in self.codingLanguages:
-				languageArray[8] = self.codingLanguages.find('C++') + len('C++') - 1
+				languageArray[8] = 1
+				#languageArray[8] = self.codingLanguages.find('C++') + len('C++') - 1
 			if 'iOS' in self.codingLanguages:
-				languageArray[9] = self.codingLanguages.find('iOS') + len('iOS') - 1
+				languageArray[9] = 1
+				#languageArray[9] = self.codingLanguages.find('iOS') + len('iOS') - 1
 
 		else: #mentee
 			if '0' in self.interests:
-				languageArray[0] = 4
-				languageArray[1] = 4
-				languageArray[4] = 4
-				languageArray[5] = 4
-				languageArray[9] = 4
+				languageArray[0] = 1
+				languageArray[1] = 1
+				languageArray[4] = 1
+				languageArray[5] = 1
+				languageArray[9] = 1
 			if '1' in self.interests:
-				languageArray[2] = 4
-				languageArray[3] = 4
-				languageArray[8] = 4
+				languageArray[2] = 1
+				languageArray[3] = 1
+				languageArray[8] = 1
 			if '2' in self.interests:
-				languageArray[2] = 4
-				languageArray[6] = 4
+				languageArray[2] = 1
+				languageArray[6] = 1
 			if '3' in self.interests:
-				languageArray[7] = 4
-				languageArray[8] = 4
+				languageArray[7] = 1
+				languageArray[8] = 1
 			if '4' in self.interests:
-				languageArray[1] = 4
-				languageArray[2] = 4
+				languageArray[1] = 1
+				languageArray[2] = 1
 
 		vectors.append(languageArray)
 
@@ -246,6 +275,6 @@ def sklearn_knn_predict(trainX, trainy, testX, k, distance_metric):
     return model.predict(testX)
 
 def userMatch(userTest):
-	trainX, trainy = load(os.path.join(datadir, 'mentors.txt'))
-	sklearn_knn_predict(trainX, trainy, userTest.getVector(), 1, 'euclidean')
-
+	trainX, trainy = load(os.path.join(os.getcwd(), 'mentors.txt'))
+	predict = sklearn_knn_predict(trainX, trainy, userTest.getVector(), 1, 'euclidean')
+	return mentors[predict][0]

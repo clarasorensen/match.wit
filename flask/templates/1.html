@@ -13,14 +13,14 @@
 
   <!-- Bootstrap Core CSS -->
   <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
- 
+
    <!-- Custom Fonts -->
    <link href="/static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
- 
+
    <!-- Theme CSS -->
    <link href="/static/css/agency.min.css" rel="stylesheet">
 
@@ -64,8 +64,8 @@
           <form method=POST action="/1/">
 
 
-        Email: <input type="email" name="email" value=""><br><br>
-        Password: <input type="password" name="password" value=""><br><br>
+        Email: <input type="email" name="email" value="" style="color:black"><br><br>
+        Password: <input type="password" name="password" value="" style="color:black"><br><br>
 
         <!-- <div class="col-md-4 col-sm-6 portfolio-item">
           <input type="checkbox" id="checkbox-2-1" class="regular-checkbox big-checkbox" /><label for="checkbox-2-1"></label>
@@ -83,6 +83,15 @@
 
         <input type="submit" name="submit" class="page-scroll btn btn-xl" style="padding:5px; color:black" value= "Next">
         </form>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
         </div>
       </div>
     </div>

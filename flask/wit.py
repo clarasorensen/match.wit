@@ -17,16 +17,19 @@ def connect():
 	return curs
 
 def createAccount(form):
-	''' creates an account in the db with the survey results based on the form '''
-	curs = connect()
-	type = form['type']
-	curs.execute('INSERT INTO accounts VALUES (%s,%s,%s);', (form['email'],hash_password(form['password']),type))
-	if type=="mentor":
-		curs.execute('INSERT INTO mentor_survey VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);', (form['email'],form['name'],form['communication'],form['age'],form['location'],form['gender'],form['spokenLang'],form['relationshipGoals'],form['mentorType'],form['occupationMentor'],form['codingLang'],form['resume'],form['resume'],form['mentorBio']))
-	if type == "mentee":
-		curs.execute('INSERT INTO mentee_survey VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);', (form['email'],form['name'],form['communication'],form['age'],form['location'],form['gender'],form['spokenLang'],form['relationshipGoals'],form['mentorType'],form['occupationMentee'],form['interests']))
+    ''' creates an account in the db with the survey results based on the form '''
+    curs = connect()
+    account = form['account']
+    for k,v in form.items():
+        print k
+        print v
+    curs.execute('INSERT INTO accounts VALUES (%s,%s,%s);', (form['email'],hash_password(form['password']),account))
+    if account=="mentor":
+    	curs.execute('INSERT INTO mentor_survey (email, name, communication, age, location, gender, spokenLang, relationshipGoals, mentorType, occupationMentor, codingLang, resume, mentorBio) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);', (form['email'],form['name'],form['communication'],form['age'],form['location'],form['gender'],form['spokenLang'],form['relationshipGoals'],form['mentorType'],form['occupationMentor'],form['codingLang'],form['resume'],form['mentorBio']))
+    if account == "mentee":
+        curs.execute('INSERT INTO mentee_survey VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);', (form['email'],form['name'],form['communication'],form['age'],form['location'],form['gender'],form['spokenLang'],form['relationshipGoals'],form['mentorType'],form['occupationMentee'],form['interests']))
 
-def login(email,pw):
+def empassCheck(email,pw):
     '''checks to make sure the given email and password matches the ones \
 in the user database table'''
     curs = connect()
@@ -46,7 +49,7 @@ def searchEmail(email):
     '''searches if the email is already in db'''
     curs = connect()
     curs.execute('SELECT * FROM accounts WHERE email=%s;',(email,))
-    row = curs.fetchall()
+    row = curs.fetchone()
     if row:
     	return 1
     else: 
@@ -64,6 +67,17 @@ def showMentee(mentor_email):
 	curs = connect()
 	curs.execute('SELECT mentee_survey.name, mentee_survey.email FROM mentee_survey, `match` WHERE `match`.mentor_email=%s AND mentee_survey.email=`match`.mentee_email ORDER BY mentee_survey.name;', (mentor_email,))
 	return curs.fetchall()
+
+def accountType(email):
+    ''' returns the account type '''
+    curs = connect()
+    curs.execute('SELECT type FROM accounts WHERE email = %s;', (email,))
+    return curs.fetchone()
+
+def addMatch(mentee, mentor):
+    ''' adds match emails to match table '''
+    curs = connect()
+    curs.execute('INSERT INTO `match` VALUES (%s,%s);', (mentee, mentor))
 
 def hash_password(password):
     '''returns the hashed password with a random salt'''
