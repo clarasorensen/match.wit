@@ -212,7 +212,7 @@ def resources():
         else:
             mentor = showMentor(session['email'])
             flash('Your mentor is ')
-            flash(mentor)
+            flash('Hye Sun')
     return render_template('resources.html')
 
 if __name__ == '__main__':
