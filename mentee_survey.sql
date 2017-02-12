@@ -16,7 +16,7 @@ create table mentee_survey (
 	relationshipGoals enum('casual', 'formal'),
 	mentorType varchar(3),
 
-	occupationMentee enum('middle school student', 'high school student', 'college student', 'working professional', 'other'),
+	occupationMentee enum('middle school student', 'high school student', 'undergraduate', 'graduate', 'working professional', 'other'),
 	interests varchar(8),
 
 	INDEX(email),
