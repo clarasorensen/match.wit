@@ -14,7 +14,7 @@ create table mentor_survey (
 	gender enum('female', 'male', 'nonbinary', 'prefer not to say'),
 	spokenLang varchar(10),
 	relationshipGoals enum('casual', 'formal'),
-	mentorType enum('basic programming skills', 'improving skills/language', 'career guidance'),
+	mentorType varchar(3),
 	occupationMentor enum('undergraduate', 'graduate student', 'PhD student', 'working professional', 'self-employed', 'retired', 'other'),
 	codingLang text(200),
 	resume varchar(100),

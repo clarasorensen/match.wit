@@ -43,6 +43,10 @@ def four():
 
 @app.route('/5/', methods=['GET', 'POST'])
 def five():
+	if request.method == 'POST':
+        communication = request.form.getlist('communication') 
+        user['communication'] = communication
+        return redirect(url_for('six'))
 	return render_template('5.html')
 
 @app.route('/6/', methods=['GET', 'POST'])
@@ -55,6 +59,10 @@ def six():
 
 @app.route('/7/', methods=['GET', 'POST'])
 def seven():
+	if request.method == 'POST':
+        mentorType = request.form.getlist('mentorType') 
+        user['mentorType'] = mentorType
+        return redirect(url_for('six'))
 	return render_template('7.html')
 
 @app.route('/8/', methods=['GET', 'POST'])
