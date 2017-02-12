@@ -67,6 +67,18 @@ def twelve():
 def thirteen():
 	return render_template('13.html')
 
+@app.route('/emailpass/', methods=['GET', 'POST'])
+def emailpass():
+	return render_template('emailpass.html')
+
+@app.route('/location/', methods=['GET', 'POST'])
+def location():
+	return render_template('location.html')
+
+@app.route('/language/', methods=['GET', 'POST'])
+def language():
+	return render_template('language.html')
+
 if __name__ == '__main__':
     app.debug = True
     app.run()
