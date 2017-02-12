@@ -169,10 +169,10 @@ def thirteen():
         interests = request.form['interests']
         user['interests'] = interests
         createAccount(user)
-        # user = {}
+
        	flash('account has been successfully added')
         flash('') # return results
-        return render_template('resources.html')
+        return redirect(url_for('resources'))
     else:
 	   return render_template('13.html')
 
@@ -199,6 +199,10 @@ def signin():
                 session['email'] = request.form['email']
                 return redirect(url_for('bookmark'))
     return render_template('login.html')
+
+@app.route('/resources/', methods=['GET','POST'])
+def resources():
+    return render_template('resources.html')
 
 if __name__ == '__main__':
     app.debug = True
