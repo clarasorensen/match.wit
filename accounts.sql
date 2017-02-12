@@ -4,7 +4,7 @@ use whack17;
 
 drop table if exists mentor_survey;
 drop table if exists mentee_survey;
-drop table if exists match;
+drop table if exists `match`;
 drop table if exists accounts;
 
 create table accounts (
