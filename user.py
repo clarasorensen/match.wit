@@ -20,7 +20,7 @@ resume #could be linkedIn url
 mentorBio
 
 #mentee-specific
-occupationMentee = ['middle school student', 'high school student', 'college student', 'working professional', 'other']
+occupationMentee = ['middle school student', 'high school student', 'undergraduate', 'graduate student', 'working professional', 'other']
 interests = ['front end/web development', 'back end', 'data analysis', 'hardware', 'cybersecurity', 'hackathons', 'tech conferences', 'tech meet-ups']
 
 
@@ -51,30 +51,32 @@ class User(object):
 		spokenLanguagesF(d)
 		if self.relationshipGoals == 'casual':
 			vector.append(0)
-		else
+		else:
 			vector.append(1)
-		
+		mentorTypeF(d)
+		occuptionMentorF(d)
+		codingXinterests(d)
 
 	def communicationF(d):
 		if '0' in self.communication: #email
 			vectors.append(1)
-		else
+		else:
 			vectors.append(0)		
 		if '1' in self.communication: #phone
 			vectors.append(1)
-		else
+		else:
 			vectors.append(0)
 		if '2' in self.communication: #Skype
 			vectors.append(1)
-		else
+		else:
 			vectors.append(0)	
 		if '3' in self.communication: #text
 			vectors.append(1)
-		else
+		else:
 			vectors.append(0)	
 		if '4' in self.communication: #in-person
 			vectors.append(1)
-		else
+		else:
 			vectors.append(0)	
 
 	def genderF(d):
@@ -84,57 +86,141 @@ class User(object):
 			vectors.append(1)	
 		elif '2' in self.gender: #nonbinary
 			vectors.append(2)
-		else
+		else:
 			vectors.append(3)	
 
 	def spokenLanguagesF(d):
 		if '0' in self.spokenLanguages: #English
 			vectors.append(1)
-		else
+		else:
 			vectors.append(0)
 
 		if '1' in self.spokenLanguages: #Chinese
 			vectors.append(1)	
-		else
+		else:
 			vectors.append(0)
 
 		if '2' in self.spokenLanguages: #Spanish
 			vectors.append(1)
-		else
+		else:
 			vectors.append(0)
 
 		if '3' in self.spokenLanguages: #Arabic
 			vectors.append(1)	
-		else
+		else:
 			vectors.append(0)
 
 		if '4' in self.spokenLanguages: #Portuguese
 			vectors.append(1)
-		else
+		else:
 			vectors.append(0)
 
 		if '5' in self.spokenLanguages: #Japanese
 			vectors.append(1)
-		else
+		else:
 			vectors.append(0)				
 
 		if '6' in self.spokenLanguages: #Malaysian
 			vectors.append(1)
-		else
+		else:
 			vectors.append(0)			
 
 		if '7' in self.spokenLanguages: #Russian
 			vectors.append(1)
-		else
+		else:
 			vectors.append(0)
 
 		if '8' in self.spokenLanguages: #French
 			vectors.append(1)
-		else
+		else:
 			vectors.append(0)
 
 		if '9' in self.spokenLanguages: #German
 			vectors.append(1)
-		else
+		else:
 			vectors.append(0)
 
+	def mentorTypeF(d):
+		if '0' in self.mentorType: #English
+			vectors.append(1)
+		else:
+			vectors.append(0)
+
+		if '1' in self.mentorType: #Chinese
+			vectors.append(1)	
+		else:
+			vectors.append(0)
+
+		if '2' in self.mentorType: #Spanish
+			vectors.append(1)
+		else:
+			vectors.append(0)
+
+	def occupationMentorF(d):
+		if self.mentorStatus: #mentor
+			if self.occupation == 'undergraduate':
+				vectors.append(0)
+			elif (self.occupation == 'graduate student') or (self.occupation == 'PhD student'):
+				vectors.append(1)
+			elif (self.occupation =='working professional') or (self.occupation == 'self-employed') or (self.occupation == 'retired'):
+				vectors.append(2)
+			else:
+				vectors.append(3)
+		else: #mentee
+			if (self.occupation == 'middle school student') or (self.occupation == 'high school student'):
+				vectors.append(0)
+			elif self.occupation == 'undergraduate':
+				vectors.append(1)
+			elif (self.occupation == 'graduate student') or (self.occupation == 'working professional'):
+				vectors.append(2)
+			else:
+				vectors.append(3)
+
+	def codingXinterests(d):
+		languageArray = [0] * 10
+
+		'HTML/CSS', 'JavaScript', 'Python', 'Java', 'PHP', 'Ruby', 'SQL', 'C#', 'C++', 'iOS'
+		if self.mentorStatus: #mentor
+			if 'HTML/CSS' in self.codingLanguages:
+				languageArray[0] = self.codingLanguages.find('HTML/CSS') + len('HTML/CSS') - 1
+			if 'JavaScript' in self.codingLanguages:
+				languageArray[1] = self.codingLanguages.find('JavaScript') + len('JavaScript') - 1
+			if 'Python' in self.codingLanguages:
+				languageArray[2] = self.codingLanguages.find('Python') + len('Python') - 1
+			if 'Java' in self.codingLanguages:
+				languageArray[3] = self.codingLanguages.find('Java') + len('Java') - 1
+			if 'PHP' in self.codingLanguages:
+				languageArray[4] = self.codingLanguages.find('PHP') + len('PHP') - 1
+			if 'Ruby' in self.codingLanguages:
+				languageArray[5] = self.codingLanguages.find('Ruby') + len('Ruby') - 1
+			if 'SQL' in self.codingLanguages:
+				languageArray[6] = self.codingLanguages.find('SQL') + len('SQL') - 1
+			if 'C#' in self.codingLanguages:
+				languageArray[7] = self.codingLanguages.find('C#') + len('C#') - 1
+			if 'C++' in self.codingLanguages:
+				languageArray[8] = self.codingLanguages.find('C++') + len('C++') - 1
+			if 'iOS' in self.codingLanguages:
+				languageArray[9] = self.codingLanguages.find('iOS') + len('iOS') - 1
+
+		else: #mentee
+			if '0' in self.interests:
+				languageArray[0] = 4
+				languageArray[1] = 4
+				languageArray[4] = 4
+				languageArray[5] = 4
+				languageArray[9] = 4
+			if '1' in self.interests:
+				languageArray[2] = 4
+				languageArray[3] = 4
+				languageArray[8] = 4
+			if '2' in self.interests:
+				languageArray[2] = 4
+				languageArray[6] = 4
+			if '3' in self.interests:
+				languageArray[7] = 4
+				languageArray[8] = 4
+			if '4' in self.interests:
+				languageArray[1] = 4
+				languageArray[2] = 4
+
+		vectors.append(languageArray)
