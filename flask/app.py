@@ -1,7 +1,9 @@
 #!/usr/local/bin/python2.7
 
 import os
-from flask import Flask, render_template
+from wit import *
+from flask import Flask, render_template, request, redirect, url_for, flash,\
+ session
 
 app = Flask(__name__)
 app.secret_key = '\xa7L"\x17>\x9bR:\x92"H\xb6\\k]\x00\xdc4\x85\xa6\xa2\xdd\xa5\x83'
@@ -23,6 +25,12 @@ def one():
 
 @app.route('/2/', methods=['GET', 'POST'])
 def two():
+	if request.method == 'POST':
+        age = request.form['age']
+        gender = request.form['gender']
+        user['age'] = age
+        user['gender'] = gender
+        return redirect(url_for('three'))
 	return render_template('2.html')
 
 @app.route('/3/', methods=['GET', 'POST'])
@@ -39,6 +47,10 @@ def five():
 
 @app.route('/6/', methods=['GET', 'POST'])
 def six():
+	if request.method == 'POST':
+        relationshipGoals = request.form['relationshipGoals']
+        user['relationshipGoals'] = relationshipGoals
+        return redirect(url_for('seven'))
 	return render_template('6.html')
 
 @app.route('/7/', methods=['GET', 'POST'])
@@ -47,6 +59,10 @@ def seven():
 
 @app.route('/8/', methods=['GET', 'POST'])
 def eight():
+	if request.method == 'POST':
+        occupationMentor = request.form['occupationMentor']
+        user['occupationMentor'] = occupationMentor
+        return redirect(url_for('nine'))
 	return render_template('8.html')
 
 @app.route('/9/', methods=['GET', 'POST'])
@@ -63,6 +79,10 @@ def eleven():
 
 @app.route('/12/', methods=['GET', 'POST'])
 def twelve():
+	if request.method == 'POST':
+        occupationMentee = request.form['occupationMentee']
+        user['occupationMentee'] = occupationMentee
+        return redirect(url_for('thirteen'))
 	return render_template('12.html')
 
 @app.route('/13/', methods=['GET', 'POST'])

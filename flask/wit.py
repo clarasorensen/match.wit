@@ -65,6 +65,7 @@ def showMentee(mentor_email):
 	''' finds the mentees '''
 	curs = connect()
 	curs.execute('SELECT mentee_survey.name, mentee_survey.email FROM mentee_survey, `match` WHERE `match`.mentor_email=%s AND mentee_survey.email=`match`.mentee_email ORDER BY mentee_survey.name;', (mentor_email,))
+	return curs.fetchall()
 
 def hash_password(password):
     '''returns the hashed password with a random salt'''
