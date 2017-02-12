@@ -1,6 +1,13 @@
 #user.py
 from geopy.geocoders import Nominatim
 geolocator = Nominatim()
+import os
+import sys
+#sys.path.insert(0, os.path.join(os.getcwd()))
+#sys.path.insert(0, "/flask/")
+os.chdir(os.getcwd() + "/flask/")
+print os.listdir(os.getcwd())
+from app.py import *
 
 #both mentor/mentee questions
 #name
@@ -32,7 +39,7 @@ class User(object):
 	def __init__(self, name, communication, age, location, gender, spokenLanguages, relationshipGoals, occupation, mentorStatus, codingLanguages=None, resume=None, mentorBio=None, mentorType=None, interests=None):
 		if d['account'] == 'mentor':
 			self.mentorStatus = True
-		else
+		else:
 			self.mentorStatus = False
 
 		self.name = d['name']
@@ -49,9 +56,9 @@ class User(object):
 			self.codingLanguages = d['codingLang']
 			self.resume = d['resume']
 			self.mentorBio = d['mentorBio']
-		else
+		else:
 			self.occupation = d['occupationMentee']
-			self.interests = d['interests
+			self.interests = d['interests']
 
 	def buildVector():
 		vectors = []
@@ -251,7 +258,6 @@ class User(object):
 		return vectors
 
 import numpy as np
-import os
 from sklearn.neighbors import KNeighborsClassifier
 
 def load(filename):
