@@ -15,7 +15,7 @@ mentorType = ['basic programming skills', 'improving skills/language', 'career g
 #mentor-specific
 occupationMentor = ['undergraduate', 'graduate student', 'PhD student', 'working professional', 'self-employed', 'retired', 'other']
 codingLanguages = ['HTML/CSS', 'JavaScript', 'Python', 'Java', 'PHP', 'Ruby', 'SQL', 'C#', 'C++', 'iOS', 'other'] #select all that apply
-skillLevel = [0, 1, 2, 3, 4] #mentor ranks their level of skill when they select languages
+#skillLevel = [0, 1, 2, 3, 4] #mentor ranks their level of skill when they select languages
 #resume #could be linkedIn url
 #mentorBio
 
@@ -182,46 +182,56 @@ class User(object):
 		'HTML/CSS', 'JavaScript', 'Python', 'Java', 'PHP', 'Ruby', 'SQL', 'C#', 'C++', 'iOS'
 		if self.mentorStatus: #mentor
 			if 'HTML/CSS' in self.codingLanguages:
-				languageArray[0] = self.codingLanguages.find('HTML/CSS') + len('HTML/CSS') - 1
+				languageArray[0] = 1
+				#languageArray[0] = self.codingLanguages.find('HTML/CSS') + len('HTML/CSS') - 1
 			if 'JavaScript' in self.codingLanguages:
-				languageArray[1] = self.codingLanguages.find('JavaScript') + len('JavaScript') - 1
+				languageArray[1] = 1
+				#languageArray[1] = self.codingLanguages.find('JavaScript') + len('JavaScript') - 1
 			if 'Python' in self.codingLanguages:
-				languageArray[2] = self.codingLanguages.find('Python') + len('Python') - 1
+				languageArray[2] = 1
+				#languageArray[2] = self.codingLanguages.find('Python') + len('Python') - 1
 			if 'Java' in self.codingLanguages:
-				languageArray[3] = self.codingLanguages.find('Java') + len('Java') - 1
+				languageArray[3] = 1
+				#languageArray[3] = self.codingLanguages.find('Java') + len('Java') - 1
 			if 'PHP' in self.codingLanguages:
-				languageArray[4] = self.codingLanguages.find('PHP') + len('PHP') - 1
+				languageArray[4] = 1
+				#languageArray[4] = self.codingLanguages.find('PHP') + len('PHP') - 1
 			if 'Ruby' in self.codingLanguages:
-				languageArray[5] = self.codingLanguages.find('Ruby') + len('Ruby') - 1
+				languageArray[5] = 1
+				#languageArray[5] = self.codingLanguages.find('Ruby') + len('Ruby') - 1
 			if 'SQL' in self.codingLanguages:
-				languageArray[6] = self.codingLanguages.find('SQL') + len('SQL') - 1
+				languageArray[6] = 1
+				#languageArray[6] = self.codingLanguages.find('SQL') + len('SQL') - 1
 			if 'C#' in self.codingLanguages:
-				languageArray[7] = self.codingLanguages.find('C#') + len('C#') - 1
+				languageArray[7] = 1
+				#languageArray[7] = self.codingLanguages.find('C#') + len('C#') - 1
 			if 'C++' in self.codingLanguages:
-				languageArray[8] = self.codingLanguages.find('C++') + len('C++') - 1
+				languageArray[8] = 1
+				#languageArray[8] = self.codingLanguages.find('C++') + len('C++') - 1
 			if 'iOS' in self.codingLanguages:
-				languageArray[9] = self.codingLanguages.find('iOS') + len('iOS') - 1
+				languageArray[9] = 1
+				#languageArray[9] = self.codingLanguages.find('iOS') + len('iOS') - 1
 
 		else: #mentee
 			if '0' in self.interests:
-				languageArray[0] = 4
-				languageArray[1] = 4
-				languageArray[4] = 4
-				languageArray[5] = 4
-				languageArray[9] = 4
+				languageArray[0] = 1
+				languageArray[1] = 1
+				languageArray[4] = 1
+				languageArray[5] = 1
+				languageArray[9] = 1
 			if '1' in self.interests:
-				languageArray[2] = 4
-				languageArray[3] = 4
-				languageArray[8] = 4
+				languageArray[2] = 1
+				languageArray[3] = 1
+				languageArray[8] = 1
 			if '2' in self.interests:
-				languageArray[2] = 4
-				languageArray[6] = 4
+				languageArray[2] = 1
+				languageArray[6] = 1
 			if '3' in self.interests:
-				languageArray[7] = 4
-				languageArray[8] = 4
+				languageArray[7] = 1
+				languageArray[8] = 1
 			if '4' in self.interests:
-				languageArray[1] = 4
-				languageArray[2] = 4
+				languageArray[1] = 1
+				languageArray[2] = 1
 
 		vectors.append(languageArray)
 
