@@ -18,8 +18,8 @@ def home():
 @app.route('/signup/', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
-        ty = request.form['type']
-        user['type'] = ty
+        ty = request.form['account']
+        user['account'] = ty
         return redirect(url_for('one'))
     else:
         return render_template('signup.html')
@@ -29,53 +29,63 @@ def one():
     if request.method == 'POST':
         email = request.form['email']
         exist = searchEmail(email)
+        password = request.form['password']
+        user['email'] = email
+        user['password'] = password
         if exist:
-            password = request.form['password']
-            user['email'] = email
-            user['password'] = password
-            return redirect(url_for('two'))
-        else:
-            flaseh('account with the email already exists')
+            flash('account with the email already exists')
             return redirect(url_for('one'))
-    return render_template('1.html')
+            
+        else:
+            return redirect(url_for('two'))
+    else:
+        return render_template('1.html')
 
 @app.route('/2/', methods=['GET', 'POST'])
 def two():
     if request.method == 'POST':
+        name = request.form['name']
         age = request.form['age']
         gender = request.form['gender']
+        user['name'] = name
         user['age'] = age
         user['gender'] = gender
         return redirect(url_for('three'))
-    return render_template('2.html')
+    else:
+        return render_template('2.html')
 
 @app.route('/3/', methods=['GET', 'POST'])
 def three():
     if request.method == 'POST':
-        location = request.form('location') 
+        location = request.form['location']
         user['location'] = location
         return redirect(url_for('four'))
-	return render_template('3.html')
+    else:
+	   return render_template('3.html')
 
 @app.route('/4/', methods=['GET', 'POST'])
 def four():
     if request.method == 'POST':
         spokenLang = request.form.getlist('spokenLang') 
+        string = ""
         for s in spokenLang:
         	string += s
         user['spokenLang'] = string
         return redirect(url_for('five'))
-	return render_template('4.html')
+    else:
+	   return render_template('4.html')
 
 @app.route('/5/', methods=['GET', 'POST'])
 def five():
     if request.method == 'POST':
         communication = request.form.getlist('communication') 
+        string = ""
         for s in communication:
         	string += s
         user['communication'] = string
         return redirect(url_for('six'))
-	return render_template('5.html')
+    else:
+	   return render_template('5.html')
 
 @app.route('/6/', methods=['GET', 'POST'])
 def six():
@@ -83,38 +93,44 @@ def six():
         relationshipGoals = request.form['relationshipGoals']
         user['relationshipGoals'] = relationshipGoals
         return redirect(url_for('seven'))
-	return render_template('6.html')
+    else:
+	   return render_template('6.html')
 
 @app.route('/7/', methods=['GET', 'POST'])
 def seven():
     if request.method == 'POST':
         mentorType = request.form.getlist('mentorType') 
+        string = ""
         for s in mentorType:
         	string += s
         user['mentorType'] = string
         return redirect(url_for('eight'))
-	return render_template('7.html')
+    else:
+	   return render_template('7.html')
 
 @app.route('/8/', methods=['GET', 'POST'])
 def eight():
     if request.method == 'POST':
         occupationMentor = request.form['occupationMentor']
         user['occupationMentor'] = occupationMentor
-        if user['type'] == "mentor":
-			return redirect(url_for('eight'))
+        if user['account'] == "mentee":
+            return redirect(url_for('twelve'))
         else:
-			return redirect(url_for('twelve'))
-	return render_template('8.html')
+            return redirect(url_for('nine'))
+    else:
+	   return render_template('8.html')
 
 @app.route('/9/', methods=['GET', 'POST'])
 def nine():
     if request.method == 'POST':
-        codingLang = request.form.getList('codingLang')
+        codingLang = request.form.getlist('codingLang')
+        string = ""
         for s in codingLang:
         	string += s
         user['codingLang'] = string
         return redirect(url_for('ten'))	
-    return render_template('9.html')
+    else:
+        return render_template('9.html')
 
 @app.route('/10/', methods=['GET', 'POST'])
 def ten():
@@ -122,15 +138,21 @@ def ten():
         resume = request.form['resume']
         user['resume'] = resume
         return redirect(url_for('eleven'))	
-	return render_template('10.html')
+    else:
+	   return render_template('10.html')
 
 @app.route('/11/', methods=['GET', 'POST'])
 def eleven():
     if request.method == 'POST':
         mentorBio = request.form['mentorBio']
         user['mentorBio'] = mentorBio
-        return redirect(url_for('twelve'))	
-	return render_template('11.html')
+        createAccount(user)
+        # user = {}
+        flash('account has been successfully added')
+        flash('') # return results
+        return render_template('resources.html')
+    else:	
+	   return render_template('11.html')
 
 @app.route('/12/', methods=['GET', 'POST'])
 def twelve():
@@ -138,7 +160,8 @@ def twelve():
         occupationMentee = request.form['occupationMentee']
         user['occupationMentee'] = occupationMentee
         return redirect(url_for('thirteen'))
-	return render_template('12.html')
+    else:
+	   return render_template('12.html')
 
 @app.route('/13/', methods=['GET', 'POST'])
 def thirteen():
@@ -146,10 +169,12 @@ def thirteen():
         interests = request.form['interests']
         user['interests'] = interests
         createAccount(user)
-        user = {}
+        # user = {}
        	flash('account has been successfully added')
         flash('') # return results
-	return render_template('13.html')
+        return render_template('resources.html')
+    else:
+	   return render_template('13.html')
 
 @app.route('/login/', methods=['GET','POST'])
 def signin():
