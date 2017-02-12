@@ -21,10 +21,10 @@ def createAccount(form):
 	curs = connect()
 	type = form['type']
 	curs.execute('INSERT INTO accounts VALUES (%s,%s,%s);', (form['email'],hash_password(form['password']),type))
-		if type=="mentor":
-			curs.execute('INSERT INTO mentor_survey VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);', (form['email'],form['name'],form['communication'],form['age'],form['location'],form['gender'],form['spokenLang'],form['relationshipGoals'],form['mentorType'],form['occupationMentor'],form['codingLang'],form['resume'],form['resume'],form['mentorBio']))
-		if type == "mentee":
-			curs.execute('INSERT INTO mentee_survey VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);', (form['email'],form['name'],form['communication'],form['age'],form['location'],form['gender'],form['spokenLang'],form['relationshipGoals'],form['mentorType'],form['occupationMentee'],form['interests']))
+	if type=="mentor":
+		curs.execute('INSERT INTO mentor_survey VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);', (form['email'],form['name'],form['communication'],form['age'],form['location'],form['gender'],form['spokenLang'],form['relationshipGoals'],form['mentorType'],form['occupationMentor'],form['codingLang'],form['resume'],form['resume'],form['mentorBio']))
+	if type == "mentee":
+		curs.execute('INSERT INTO mentee_survey VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);', (form['email'],form['name'],form['communication'],form['age'],form['location'],form['gender'],form['spokenLang'],form['relationshipGoals'],form['mentorType'],form['occupationMentee'],form['interests']))
 
 def login(email,pw):
     '''checks to make sure the given email and password matches the ones \
