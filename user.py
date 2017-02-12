@@ -141,17 +141,17 @@ class User(object):
 			vectors.append(0)
 
 	def mentorTypeF(d):
-		if '0' in self.mentorType: #English
+		if '0' in self.mentorType: #basic programming skills
 			vectors.append(1)
 		else:
 			vectors.append(0)
 
-		if '1' in self.mentorType: #Chinese
+		if '1' in self.mentorType: #improving skills/language
 			vectors.append(1)	
 		else:
 			vectors.append(0)
 
-		if '2' in self.mentorType: #Spanish
+		if '2' in self.mentorType: #career guidance
 			vectors.append(1)
 		else:
 			vectors.append(0)
