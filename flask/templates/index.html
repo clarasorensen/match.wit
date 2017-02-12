@@ -57,11 +57,11 @@
           </li>
           <!-- do mission within -->
           <li class="dropdown">
-                <a href="#resources" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Resources <span class="caret"></span></a>
+                <a href="/resources/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Resources <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="resources.html#articles" style="color:black">Articles</a></li>
-                  <li><a href="resources.html#events" style="color:black">Events</a></li>
-                  <li><a href="resources.html#learn" style="color:black">Learn</a></li>
+                  <li><a href="/resources/#articles" style="color:black">Articles</a></li>
+                  <li><a href="/resources/#events" style="color:black">Events</a></li>
+                  <li><a href="/resources/#learn" style="color:black">Learn</a></li>
                 </ul>
               </li>
           <li>
@@ -70,12 +70,12 @@
           <li>
             <a class="page-scroll btn btn-md" style="background-color:#1297BA; padding:5px; margin-top:9px; margin-left:10px" href="/signup/">Sign Up</a>
           </li>
-          {% if session['logged_in'] %}
+          {% if session['email'] %}
            <a class="page-scroll btn btn-md" style="background-color:#1297BA; padding:5px; margin-top:9px; margin-left:10px" href="/login/">LogOut</a>
           {% else %}
           <li>
             <a class="page-scroll btn btn-md" style="background-color:#1297BA; padding:5px; margin-top:9px; margin-left:10px" href="/login/">LogIn</a>
-            {% end if %}
+            {% endif %}
         </ul>
       </div>
       <!-- /.navbar-collapse -->

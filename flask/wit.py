@@ -29,7 +29,7 @@ def createAccount(form):
     if account == "mentee":
         curs.execute('INSERT INTO mentee_survey VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);', (form['email'],form['name'],form['communication'],form['age'],form['location'],form['gender'],form['spokenLang'],form['relationshipGoals'],form['mentorType'],form['occupationMentee'],form['interests']))
 
-def login(email,pw):
+def empassCheck(email,pw):
     '''checks to make sure the given email and password matches the ones \
 in the user database table'''
     curs = connect()
@@ -71,9 +71,14 @@ def showMentee(mentor_email):
 def accountType(email):
     ''' returns the account type '''
     curs = connect()
-    curs.execute('SELECT type FROM accounts WHERE email = %S;', (email,))
+    curs.execute('SELECT type FROM accounts WHERE email = %s;', (email,))
     return curs.fetchone()
-    
+
+def addMatch(mentee, mentor):
+    ''' adds match emails to match table '''
+    curs = connect()
+    curs.execute('INSERT INTO `match` VALUES (%s,%s);', (mentee, mentor))
+
 def hash_password(password):
     '''returns the hashed password with a random salt'''
     #uuid is used to generate a random number
