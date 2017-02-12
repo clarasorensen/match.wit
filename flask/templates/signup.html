@@ -24,6 +24,9 @@
    <!-- Theme CSS -->
    <link href="/static/css/agency.min.css" rel="stylesheet">
 
+    <!-- Checkbox CSS -->
+   <link rel="stylesheet" type="text/css" href="style2.css" />
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -43,47 +46,40 @@
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
           <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
         </button>
-        <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
-      </div>
+<!--         <a class="navbar-brand page-scroll" href="#page-top">WITCON</a>
+ -->      </div>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="hidden">
-            <a href="#page-top"></a>
-          </li>
-          <li>
-            <a class="page-scroll" href="#about">About</a>
-          </li>
-          <!-- do mission within -->
-          <li class="dropdown">
-                <a href="#resources" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Resources <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="resources.html#articles" style="color:black">Articles</a></li>
-                  <li><a href="resources.html#events" style="color:black">Events</a></li>
-                  <li><a href="resources.html#learn" style="color:black">Learn</a></li>
-                </ul>
-              </li>
-          <li>
-            <a class="page-scroll" href="#testimonials">Testimonials</a>
-          </li>
-          <li>
-            <a class="page-scroll btn btn-md" style="background-color:#1297BA; padding:5px; margin-top:9px; margin-left:10px" href="#signup.html">Sign Up</a>
-          </li>
-        </ul>
-      </div>
       <!-- /.navbar-collapse -->
     </div>
     <!-- /.container-fluid -->
   </nav>
 
+
   <!-- Header -->
   <header>
-    <div class="container">
-      <div class="intro-text">
-        <div class="intro-lead-in">Welcome To Our Studio!</div>
-        <div class="intro-heading">Hello</div>
-        <a href="#about" class="page-scroll btn btn-xl">Tell Me More</a>
+    <div class="container" style="height:100%">
+      <div class="intro-text" style="height:100%">
+        <div class="intro-heading" style="font-size:35px">You will be a:</div>
+
+        <input type="radio" name="ment" value="mentor"> Mentor<br><br>
+        <input type="radio" name="ment" value="mentee"> Mentee<br><br>
+
+        <!-- <div class="col-md-4 col-sm-6 portfolio-item">
+          <input type="checkbox" id="checkbox-2-1" class="regular-checkbox big-checkbox" /><label for="checkbox-2-1"></label>
+          <div class="portfolio-caption">
+            <h4 style="text-transform:initial; text-align:center">Mentor</h4>
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 portfolio-item">
+          <input type="checkbox" id="checkbox-2-2" class="regular-checkbox big-checkbox" /><label for="checkbox-2-2"></label>
+          <div class="portfolio-caption">
+            <h4 style="text-transform:initial; text-align:centerb">Mentee</h4>
+          </div>
+        </div> -->
+
+        <input type="submit" name="submit" class="page-scroll btn btn-xl" style="padding:5px; color:black" value= "Next">
+        </div>
       </div>
     </div>
   </header>
@@ -104,6 +100,63 @@
 
   <!-- Theme JavaScript -->
   <script src="static/js/agency.min.js"></script>
+
+  <style>
+    .regular-checkbox {
+      display: none;
+    }
+
+    .regular-checkbox + label {
+      background-color: #fafafa;
+      border: 1px solid #cacece;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+      padding: 9px;
+      border-radius: 3px;
+      display: inline-block;
+      position: relative;
+    }
+
+    .regular-checkbox + label:active, .regular-checkbox:checked + label:active {
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .regular-checkbox:checked + label {
+      background-color: #e9ecee;
+      border: 1px solid #adb8c0;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1);
+      color: #99a1a7;
+    }
+
+    .regular-checkbox:checked + label:after {
+      content: '\2714';
+      font-size: 14px;
+      position: absolute;
+      top: 0px;
+      left: 3px;
+      color: #99a1a7;
+    }
+
+
+    .big-checkbox + label {
+      padding: 18px;
+    }
+
+    .big-checkbox:checked + label:after {
+      font-size: 28px;
+      left: 6px;
+    }
+
+    .tag {
+      font-family: Arial, sans-serif;
+      width: 200px;
+      position: relative;
+      top: 5px;
+      font-weight: bold;
+      text-transform: uppercase;
+      display: block;
+      float: left;
+    }
+  </style>
 
 </body>
 
