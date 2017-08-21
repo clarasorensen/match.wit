@@ -1,4 +1,5 @@
 -- Mentee Survey Result Table
+--created by : Hye Sun and Karina
 
 use whack17;
 
